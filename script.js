@@ -112,25 +112,31 @@ async function loadMessages() {
     // Clear loading state if it exists
     const loadingState = document.querySelector('.loading-state');
 
-    const { data: messages, error } = await supabase
-        .from('messages')
-        .select('*')
-        .order('created_at', { ascending: true }) // Order by time ascending
-        .limit(50); // Get last 50 messages
+    try {
+        const { data: messages, error } = await supabase
+            .from('messages')
+            .select('*')
+            .order('created_at', { ascending: true }) // Order by time ascending
+            .limit(50); // Get last 50 messages
 
-    if (error) {
-        console.error('Error loading messages:', error);
-        if (loadingState) loadingState.textContent = 'SYSTEM ERROR: CONNECT FAILED';
-        return;
+        if (error) throw error;
+
+        if (loadingState) loadingState.remove();
+
+        messages.forEach(msg => {
+            messagesContainer.appendChild(renderMessage(msg));
+        });
+
+        scrollToBottom();
+
+    } catch (err) {
+        console.error('Connection Error:', err);
+        if (loadingState) {
+            loadingState.innerHTML = `SYSTEM ERROR:<br>${err.message || 'UNKNOWN'}<br>RETRYING...`;
+            loadingState.style.color = 'red';
+            setTimeout(loadMessages, 3000); // Auto retry
+        }
     }
-
-    if (loadingState) loadingState.remove();
-
-    messages.forEach(msg => {
-        messagesContainer.appendChild(renderMessage(msg));
-    });
-
-    scrollToBottom();
 }
 
 // Subscribe to Realtime Updates
