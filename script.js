@@ -35,13 +35,15 @@ const splashScreen = document.getElementById('splash-screen');
 const mainContainer = document.querySelector('.container');
 
 // Auto Boot Sequence
-// Auto Boot Sequence
 function removeSplash() {
     if (!splashScreen) return;
 
     // Prevent double removal
     if (splashScreen.classList.contains('removing')) return;
     splashScreen.classList.add('removing');
+
+    // Play Boot Sound
+    if (window.playSfx) window.playSfx('boot');
 
     // Fade out splash
     splashScreen.style.transition = 'opacity 0.8s ease';
@@ -104,7 +106,12 @@ function renderMessage(msg) {
 
 // Scroll handling
 function scrollToBottom() {
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    const lastMsg = messagesContainer.lastElementChild;
+    if (lastMsg) {
+        lastMsg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    } else {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 }
 
 // Load Initial Messages
@@ -128,7 +135,10 @@ async function loadMessages() {
             messagesContainer.appendChild(renderMessage(msg));
         });
 
-        scrollToBottom();
+        // Force instant scroll
+        setTimeout(() => {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 100);
 
     } catch (err) {
         console.error('Connection Error:', err);
@@ -148,8 +158,10 @@ function subscribeToMessages() {
             const newMsg = payload.new;
             messagesContainer.appendChild(renderMessage(newMsg));
 
+            // Sound
+            if (window.playSfx) window.playSfx('receive');
+
             // Auto scroll if user was near bottom
-            // Simple logic: always scroll for now to ensure visibility of new chats
             scrollToBottom();
         })
         .subscribe();
@@ -164,6 +176,9 @@ messageForm.addEventListener('submit', async (e) => {
 
     if (!content) return;
 
+    // Sound
+    if (window.playSfx) window.playSfx('send');
+
     // Send to Supabase
     const { error } = await supabase
         .from('messages')
@@ -172,10 +187,9 @@ messageForm.addEventListener('submit', async (e) => {
     if (error) {
         console.error('Error sending message:', error);
         alert('TRANSMISSON FAILED');
+        if (window.playSfx) window.playSfx('error');
     } else {
         contentInput.value = ''; // Clear input
         contentInput.focus();
     }
 });
-
-
