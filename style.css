@@ -52,17 +52,16 @@ body {
 }
 
 /* Background Grid Effect - Simulating the physical matrix */
-.matrix-bg {
-    position: absolute;
+/* Background Grid Effect - Simulating the physical matrix */
+#matrix-canvas {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:
-        radial-gradient(circle, var(--led-off) 1.5px, transparent 2px);
-    background-size: 8px 8px;
     z-index: -1;
-    opacity: 0.5;
+    opacity: 0.25;
+    /* Subtle rain */
     pointer-events: none;
 }
 

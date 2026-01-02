@@ -26,8 +26,9 @@
 </head>
 
 <body>
-    <div class="matrix-bg"></div>
+    <canvas id="matrix-canvas"></canvas>
     <div class="scanline"></div>
+    <script src="matrix-rain.js" defer></script>
 
     <!-- Splash Screen -->
     <!-- Splash Screen -->
@@ -86,6 +87,7 @@
             </div>
             <div class="header-decoration">
                 <span>SYS.ONLINE</span>
+                <span id="online-count" style="color: var(--accent-color)">NODES: 0</span>
                 <span>V.1.0.0</span>
             </div>
         </header>

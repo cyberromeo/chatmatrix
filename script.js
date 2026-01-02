@@ -150,7 +150,7 @@ async function loadMessages() {
     }
 }
 
-// Subscribe to Realtime Updates
+// Subscribe to Realtime Updates & Presence
 function subscribeToMessages() {
     const channel = supabase
         .channel('public:messages')
@@ -164,7 +164,31 @@ function subscribeToMessages() {
             // Auto scroll if user was near bottom
             scrollToBottom();
         })
-        .subscribe();
+        .on('presence', { event: 'sync' }, () => {
+            const newState = channel.presenceState();
+            const onlineCount = Object.keys(newState).length;
+
+            const countEl = document.getElementById('online-count');
+            if (countEl) {
+                countEl.innerText = `NODES: ${onlineCount}`;
+                // Optional: visual pulse when count changes
+                countEl.style.textShadow = '0 0 10px var(--accent-color)';
+                setTimeout(() => countEl.style.textShadow = 'none', 500);
+            }
+        })
+        .subscribe(async (status) => {
+            if (status === 'SUBSCRIBED') {
+                // Track this user
+                // We generate a random ID for this session or use the username
+                // For accurate counts, we just need a unique tracking event per tab
+                const userStatus = {
+                    online_at: new Date().toISOString(),
+                    user_id: Math.random().toString(36).substr(2, 9)
+                };
+
+                await channel.track(userStatus);
+            }
+        });
 }
 
 // Handle Form Submission
