@@ -14,7 +14,7 @@
         rel="stylesheet">
 
     <!-- Supabase -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="splash.css">
@@ -108,7 +108,11 @@
         </footer>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+        window.supabase = { createClient };
+    </script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>
