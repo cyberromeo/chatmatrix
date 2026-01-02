@@ -138,6 +138,8 @@ body {
     -webkit-overflow-scrolling: touch;
     /* Smooth scrolling on iOS */
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    padding-bottom: 100px;
+    /* Force extra space at bottom */
 }
 
 .message-item {
@@ -321,6 +323,8 @@ button.send-btn:hover {
     .messages-container {
         padding-right: 4px;
         gap: 12px;
+        padding-bottom: 120px;
+        /* Big safe area for mobile */
         /* Disable mask on mobile if it causes issues, but keep for now with reduced range */
         mask-image: linear-gradient(to bottom, transparent, black 2%, black 98%, transparent);
     }
