@@ -1,157 +1,116 @@
-/* SPLASH SCREEN STYLES */
+/* NOTHING OS SPLASH SCREEN */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color);
-    z-index: 9999;
+    background-color: #000000;
+    z-index: 2147483647;
+    /* MAX INT */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'DotGothic16', sans-serif;
 }
 
 .splash-content {
-    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    align-items: flex-start;
+    /* Left align like Nothing OS */
+    gap: 40px;
+    width: 300px;
 }
 
 .matrix-logo {
-    font-family: var(--font-matrix);
-    font-size: 4rem;
-    line-height: 1.2;
-    letter-spacing: 15px;
-    color: var(--text-primary);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
-.d {
-    display: inline-block;
-    animation: glitch 3s infinite;
+.logo-line {
+    font-size: 3.5rem;
+    color: #fff;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
-/* Random glitch timings */
-.d:nth-child(2n) {
-    animation-duration: 2.5s;
+.logo-line.red {
+    color: #d71921;
 }
 
-.d:nth-child(3n) {
-    animation-duration: 4s;
-}
-
-.loading-bar {
-    width: 200px;
-    height: 4px;
-    background: #333;
+/* Nothing-style decorative elements */
+.deco-line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #333;
     position: relative;
-    overflow: hidden;
 }
 
-.progress {
+.deco-line::after {
+    content: '( SYSTEM_BOOT )';
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background: var(--accent-color);
-    box-shadow: 0 0 10px var(--accent-color);
-    animation: loadProgress 2s ease-out forwards;
-}
-
-.system-status {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
+    right: 0;
+    top: -20px;
+    font-size: 0.7rem;
+    color: #555;
+    font-family: 'Space Mono', monospace;
 }
 
 #start-btn {
-    margin-top: 20px;
     background: transparent;
-    color: var(--text-primary);
-    border: 2px solid var(--text-primary);
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 30px;
+    /* Pill shape */
     padding: 15px 40px;
-    font-family: var(--font-matrix);
-    font-size: 1.5rem;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 4px;
+    transition: all 0.2s;
     text-transform: uppercase;
-    opacity: 0;
-    animation: fadeInBtn 1s ease-out 2s forwards;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #start-btn:hover {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    box-shadow: 0 0 30px var(--accent-color);
+    background: #d71921;
+    border-color: #d71921;
+    color: #000;
 }
 
-/* Animations */
-@keyframes glitch {
-    0% {
-        transform: translate(0);
-        opacity: 1;
-    }
+#start-btn::after {
+    content: '->';
+}
 
-    2% {
-        transform: translate(-2px, 2px);
-        opacity: 0.8;
-    }
+/* Loader */
+.boot-sequence {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: #444;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 
-    4% {
-        transform: translate(2px, -2px);
-        opacity: 1;
-    }
+.blink {
+    animation: blink 1s infinite;
+}
 
-    6% {
-        transform: translate(0);
-        opacity: 1;
-    }
+@keyframes blink {
 
+    0%,
     100% {
-        transform: translate(0);
         opacity: 1;
-    }
-}
-
-@keyframes loadProgress {
-    0% {
-        width: 0%;
     }
 
     50% {
-        width: 40%;
-    }
-
-    80% {
-        width: 60%;
-    }
-
-    100% {
-        width: 100%;
-    }
-}
-
-@keyframes fadeInBtn {
-    from {
         opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 600px) {
-    .matrix-logo {
-        font-size: 2.5rem;
-        letter-spacing: 5px;
     }
 }
