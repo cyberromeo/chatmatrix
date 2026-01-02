@@ -323,10 +323,11 @@ button.send-btn:hover {
     .messages-container {
         padding-right: 4px;
         gap: 12px;
-        padding-bottom: 120px;
-        /* Big safe area for mobile */
-        /* Disable mask on mobile if it causes issues, but keep for now with reduced range */
-        mask-image: linear-gradient(to bottom, transparent, black 2%, black 98%, transparent);
+        /* Big safe area for mobile + iOS home bar */
+        padding-bottom: calc(120px + env(safe-area-inset-bottom));
+        /* Disable mask on mobile to fix visibility issues at edges */
+        mask-image: none;
+        -webkit-mask-image: none;
     }
 
     .message-content {
