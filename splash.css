@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'DotGothic16', sans-serif;
+    font-family: 'Doto', sans-serif;
 }
 
 .splash-content {
@@ -62,7 +62,7 @@
 
 /* Loader */
 .boot-sequence {
-    font-family: 'DotGothic16', sans-serif;
+    font-family: 'Doto', sans-serif;
     /* Glyph Matrix Style */
     font-size: 0.9rem;
     color: #d71921;

@@ -9,6 +9,7 @@
     --led-on: #ffffff;
 
     --font-matrix: 'DotGothic16', sans-serif;
+    --font-doto: 'Doto', sans-serif;
     --font-mono: 'Space Mono', monospace;
 
     --spacing-unit: 8px;
@@ -98,7 +99,8 @@ body {
 }
 
 .logo-text {
-    font-family: var(--font-matrix);
+    font-family: var(--font-doto);
+    font-weight: 800;
     font-size: 3rem;
     font-weight: 400;
     letter-spacing: 2px;
@@ -123,6 +125,7 @@ body {
 
 .header-decoration {
     font-size: 0.8rem;
+    font-family: var(--font-doto);
     color: var(--text-secondary);
     display: flex;
     flex-direction: column;
@@ -228,7 +231,8 @@ input {
     background: transparent;
     border: 1px solid var(--text-secondary);
     color: var(--text-primary);
-    font-family: var(--font-matrix);
+    font-family: var(--font-doto);
+    font-weight: 600;
     font-size: 1.2rem;
     padding: 8px;
     outline: none;
