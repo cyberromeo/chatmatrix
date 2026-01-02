@@ -18,13 +18,24 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    scrollbar-width: none;
-    /* Firefox */
 }
 
+/* Custom Scrollbar for Webkit */
 ::-webkit-scrollbar {
-    display: none;
-    /* Chrome/Safari */
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
 }
 
 body {
