@@ -179,7 +179,7 @@ function subscribeToMessages() {
 
             const countEl = document.getElementById('online-count');
             if (countEl) {
-                countEl.innerText = `NODES: ${onlineCount}`;
+                countEl.innerText = `ONLINE: ${onlineCount}`;
                 // Optional: visual pulse when count changes
                 countEl.style.textShadow = '0 0 10px var(--accent-color)';
                 setTimeout(() => countEl.style.textShadow = 'none', 500);
