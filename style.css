@@ -284,32 +284,96 @@ button.send-btn:hover {
 
 /* Responsive */
 @media (max-width: 600px) {
+    body {
+        /* Allow body to handle scrolling if needed, but we prefer container */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
     .container {
         border: none;
         border-radius: 0;
         max-width: 100%;
-        height: 100vh;
-        /* Fallback */
         height: 100dvh;
-        /* Dynamic viewport height for mobile browsers */
-        padding: 10px;
+        /* Exact viewport height */
+        padding: 12px;
         box-shadow: none;
+        background: black;
+        /* Solid black for better perfromance */
+    }
+
+    .app-header {
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom-width: 1px;
     }
 
     .logo-text {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        /* Smaller logo */
+    }
+
+    .header-decoration {
+        font-size: 0.6rem;
+    }
+
+    .messages-container {
+        padding-right: 4px;
+        gap: 12px;
+        /* Disable mask on mobile if it causes issues, but keep for now with reduced range */
+        mask-image: linear-gradient(to bottom, transparent, black 2%, black 98%, transparent);
     }
 
     .message-content {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        /* More readable text size */
+        line-height: 1.3;
+    }
+
+    .message-meta {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+    }
+
+    .input-area {
+        margin-top: 10px;
+        padding-top: 10px;
+        background: black;
+        /* Cover content behind */
     }
 
     #message-form {
-        flex-direction: column;
+        gap: 8px;
+        flex-direction: row;
+        /* Keep side-by-side if possible */
+        align-items: flex-end;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    /* Make username smaller and less obtrusive */
+    .input-group:first-child {
+        width: 30%;
+        flex-grow: 0;
+    }
+
+    .input-group.flex-grow {
+        width: 65%;
+    }
+
+    input {
+        font-size: 1rem;
+        padding: 6px;
     }
 
     .send-btn {
-        width: 100%;
-        padding: 12px;
+        width: auto;
+        padding: 0 16px;
+        height: 40px;
+        /* Match input height roughly */
+        font-size: 0.9rem;
     }
 }
