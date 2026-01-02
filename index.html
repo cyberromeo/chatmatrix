@@ -17,13 +17,31 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="splash.css">
 </head>
 
 <body>
     <div class="matrix-bg"></div>
     <div class="scanline"></div>
 
-    <main class="container">
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="matrix-logo">
+                <span class="d">C</span><span class="d">H</span><span class="d">A</span><span class="d">T</span>
+                <br>
+                <span class="d">M</span><span class="d">A</span><span class="d">T</span><span class="d">R</span><span
+                    class="d">I</span><span class="d">X</span>
+            </div>
+            <div class="loading-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="system-status">>> INITIALIZING PROTOCOLS...</div>
+            <button id="start-btn">START_SYSTEM</button>
+        </div>
+    </div>
+
+    <main class="container" style="display: none; opacity: 0;">
         <header class="app-header">
             <div class="logo-area">
                 <h1 class="logo-text">CHAT MATRIX</h1>
