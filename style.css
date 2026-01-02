@@ -2,14 +2,15 @@
     --bg-color: #000000;
     --text-primary: #ffffff;
     --text-secondary: #555555;
-    --accent-color: #d71921; /* Nothing Red */
+    --accent-color: #d71921;
+    /* Nothing Red */
     --matrix-grid-color: #111111;
     --led-off: #1a1a1a;
     --led-on: #ffffff;
-    
+
     --font-matrix: 'DotGothic16', sans-serif;
     --font-mono: 'Space Mono', monospace;
-    
+
     --spacing-unit: 8px;
 }
 
@@ -17,11 +18,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 ::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
+    /* Chrome/Safari */
 }
 
 body {
@@ -44,7 +47,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         radial-gradient(circle, var(--led-off) 1.5px, transparent 2px);
     background-size: 8px 8px;
     z-index: -1;
@@ -54,16 +57,20 @@ body {
 
 .container {
     width: 100%;
-    max-width: 800px;
+    max-width: 420px;
     height: 100%;
-    max-height: 100vh;
+    max-height: 90vh;
+    /* Don't touch edges on desktop */
     display: flex;
     flex-direction: column;
     padding: calc(var(--spacing-unit) * 2);
     position: relative;
-    border-left: 1px solid var(--text-secondary);
-    border-right: 1px solid var(--text-secondary);
-    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--text-secondary);
+    border-radius: 24px;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    /* Clip everything to rounded corners */
 }
 
 /* Header */
@@ -225,40 +232,66 @@ button.send-btn:hover {
 
 /* Animations */
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
 }
 
 @keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive */
 @media (max-width: 600px) {
     .container {
         border: none;
+        border-radius: 0;
+        max-width: 100%;
+        max-height: 100vh;
         padding: 10px;
+        box-shadow: none;
     }
-    
+
     .logo-text {
         font-size: 2rem;
     }
-    
+
     .message-content {
         font-size: 1.1rem;
     }
-    
+
     #message-form {
         flex-direction: column;
     }
-    
+
     .send-btn {
         width: 100%;
         padding: 12px;
