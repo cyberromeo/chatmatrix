@@ -45,6 +45,34 @@
         </div>
     </div>
 
+    <!-- FAILSAFE SPLASH REMOVER -->
+    <script>
+        (function () {
+            function forceEnter() {
+                const splash = document.getElementById('splash-screen');
+                const main = document.querySelector('.container');
+                if (splash) {
+                    splash.style.transition = 'opacity 0.5s';
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.remove(), 500);
+                }
+                if (main) {
+                    main.style.display = 'flex';
+                    setTimeout(() => main.style.opacity = '1', 100);
+                }
+            }
+
+            // Auto-run after 3 seconds no matter what
+            setTimeout(forceEnter, 3000);
+
+            // Also allow click
+            const s = document.getElementById('splash-screen');
+            if (s) s.addEventListener('click', forceEnter);
+            if (s) s.addEventListener('touchstart', forceEnter);
+        })();
+    </script>
+    </div>
+
     <main class="container" style="display: none; opacity: 0;">
         <header class="app-header">
             <div class="logo-area">
