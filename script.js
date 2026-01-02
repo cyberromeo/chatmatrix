@@ -42,22 +42,31 @@ function removeSplash() {
     if (splashScreen.classList.contains('removing')) return;
     splashScreen.classList.add('removing');
 
-    // Play Boot Sound
-    if (window.playSfx) window.playSfx('boot');
+    // Play Boot Sound (Protected)
+    try {
+        if (window.playSfx) window.playSfx('boot');
+    } catch (e) {
+        console.warn('SFX Fail', e);
+    }
 
     // Fade out splash
     splashScreen.style.transition = 'opacity 0.8s ease';
     splashScreen.style.opacity = '0';
 
     // Show main container
-    mainContainer.style.display = 'flex';
-    setTimeout(() => {
+    if (mainContainer) {
+        mainContainer.style.display = 'flex';
+        // Force reflow
+        void mainContainer.offsetWidth;
+
+        // Fade in
         mainContainer.style.transition = 'opacity 1s ease';
         mainContainer.style.opacity = '1';
-    }, 50);
+    }
 
+    // Garbage collection
     setTimeout(() => {
-        splashScreen.remove();
+        if (splashScreen) splashScreen.remove();
     }, 800);
 }
 
