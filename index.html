@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT MATRIX</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="scanline"></div>
+
+    <main class="container">
+        <header class="app-header">
+            <div class="logo-area">
+                <h1 class="logo-text">CHAT MATRIX</h1>
+                <div class="status-dot"></div>
+            </div>
+            <div class="header-decoration">
+                <span>SYS.ONLINE</span>
+                <span>V.1.0.0</span>
+            </div>
+        </header>
+
+        <section class="messages-container" id="messages-container">
+            <!-- Messages will be injected here -->
+            <div class="loading-state">
+                INITIALIZING CONNECTION...
+            </div>
+        </section>
+
+        <footer class="input-area">
+            <form id="message-form">
+                <div class="input-group">
+                    <label for="username" class="input-label">USER_ID:</label>
+                    <input type="text" id="username" placeholder="GHOST" maxlength="15" autocomplete="off">
+                </div>
+                <div class="input-group flex-grow">
+                    <label for="content" class="input-label">DATA:</label>
+                    <input type="text" id="content" placeholder="ENTER TRANSMISSION..." maxlength="280" required autocomplete="off">
+                </div>
+                <button type="submit" class="send-btn">SEND</button>
+            </form>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
