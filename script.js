@@ -4,8 +4,25 @@
 const SUPABASE_URL = 'https://bvbbyfnlecxtugsfrchk.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_UMlnwzO10ZvXxPzZYrge_Q_UyM0yZAF';
 
-// Initialize Supabase Client
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// WAIT FOR SUPABASE LIBRARY
+let supabase;
+
+function initApp() {
+    if (typeof window.supabase === 'undefined') {
+        setTimeout(initApp, 100);
+        return;
+    }
+
+    // Initialize
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Start App
+    loadMessages();
+    subscribeToMessages();
+}
+
+// Start checking
+initApp();
 
 // DOM Elements
 const messagesContainer = document.getElementById('messages-container');
@@ -154,19 +171,4 @@ messageForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Initialize
-async function init() {
-    if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
-        const loadingState = document.querySelector('.loading-state');
-        if (loadingState) {
-            loadingState.innerHTML = 'SETUP REQUIRED:<br>EDIT script.js WITH SUPABASE KEYS';
-            loadingState.style.color = 'var(--accent-color)';
-        }
-        return;
-    }
 
-    await loadMessages();
-    subscribeToMessages();
-}
-
-init();
