@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHAT MATRIX</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="matrix-bg"></div>
     <div class="scanline"></div>
@@ -46,7 +50,8 @@
                 </div>
                 <div class="input-group flex-grow">
                     <label for="content" class="input-label">DATA:</label>
-                    <input type="text" id="content" placeholder="ENTER TRANSMISSION..." maxlength="280" required autocomplete="off">
+                    <input type="text" id="content" placeholder="ENTER TRANSMISSION..." maxlength="280" required
+                        autocomplete="off">
                 </div>
                 <button type="submit" class="send-btn">SEND</button>
             </form>
@@ -55,4 +60,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DEBUG MODE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        .log {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .error {
+            color: #f00;
+        }
+
+        .success {
+            color: #0f0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>SYSTEM DIAGNOSTIC</h1>
+    <div id="output"></div>
+
+    <script>
+        const SUPABASE_URL = 'https://bvbbyfnlecxgtgsfrchk.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_UMlnwzO10ZvXxPzZYrge_Q_UyM0yZAF';
+
+        function log(msg, type = 'normal') {
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            document.getElementById('output').appendChild(div);
+        }
+
+        async function runDiagnostics() {
+            log("1. INITIALIZING CLIENT...");
+            try {
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                log("CLIENT CREATED.", "success");
+
+                log("2. TESTING CONNECTION (SELECT)...");
+                const { data, error } = await supabase.from('messages').select('*').limit(1);
+
+                if (error) {
+                    log(`CONNECTION FAILED: ${error.message}`, "error");
+                    log(`HINT: ${error.hint || 'No hint available'}`, "error");
+                } else {
+                    log(`CONNECTION SUCCESSFUL. Found ${data.length} messages.`, "success");
+                }
+
+                log("3. TESTING INSERT...");
+                const { error: insertError } = await supabase
+                    .from('messages')
+                    .insert([{ username: 'DEBUG_BOT', content: 'DIAGNOSTIC TEST' }]);
+
+                if (insertError) {
+                    log(`INSERT FAILED: ${insertError.message}`, "error");
+                } else {
+                    log("INSERT SUCCESSFUL.", "success");
+                }
+
+            } catch (err) {
+                log(`CRITICAL ERROR: ${err.message}`, "error");
+            }
+        }
+
+        runDiagnostics();
+    </script>
+</body>
+
+</html>
