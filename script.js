@@ -34,6 +34,20 @@ const contentInput = document.getElementById('content');
 const splashScreen = document.getElementById('splash-screen');
 const mainContainer = document.querySelector('.container');
 
+// Full Screen Logic
+function enterFullScreen() {
+    const docEl = document.documentElement;
+    if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(err => {
+            console.warn(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+    } else if (docEl.webkitRequestFullscreen) { /* Safari */
+        docEl.webkitRequestFullscreen();
+    } else if (docEl.msRequestFullscreen) { /* IE11 */
+        docEl.msRequestFullscreen();
+    }
+}
+
 // Auto Boot Sequence
 function removeSplash() {
     if (!splashScreen) return;
@@ -131,6 +145,9 @@ if (splashInput) {
             if (name) {
                 // Set username
                 if (usernameInput) usernameInput.value = name;
+
+                // Enter Full Screen
+                enterFullScreen();
 
                 // Remove splash
                 removeSplash();
