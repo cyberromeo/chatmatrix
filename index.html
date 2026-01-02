@@ -18,6 +18,11 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="splash.css">
+
+    <!-- PWA Config -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <link rel="apple-touch-icon" href="icons/icon-512.png">
 </head>
 
 <body>
@@ -113,6 +118,17 @@
         window.supabase = { createClient };
     </script>
     <script src="script.js" defer></script>
+
+    <!-- PWA Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW Registered'))
+                    .catch(err => console.log('SW Fail', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
