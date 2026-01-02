@@ -1,7 +1,7 @@
 
 // SUPABASE CONFIGURATION
 // REPLACE THESE WITH YOUR OWN PROJECT VALUES
-const SUPABASE_URL = 'https://bvbbyfnlecxgtgsfrchk.supabase.co';
+const SUPABASE_URL = 'https://bvbbyfnlecxtugsfrchk.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_UMlnwzO10ZvXxPzZYrge_Q_UyM0yZAF';
 
 // Initialize Supabase Client
