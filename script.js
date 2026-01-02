@@ -18,27 +18,37 @@ const splashScreen = document.getElementById('splash-screen');
 const mainContainer = document.querySelector('.container');
 
 // Auto Boot Sequence
-window.addEventListener('load', () => {
-    // Wait for "boot" (3 seconds)
+// Auto Boot Sequence
+function removeSplash() {
+    if (!splashScreen) return;
+
+    // Prevent double removal
+    if (splashScreen.classList.contains('removing')) return;
+    splashScreen.classList.add('removing');
+
+    // Fade out splash
+    splashScreen.style.transition = 'opacity 0.8s ease';
+    splashScreen.style.opacity = '0';
+
+    // Show main container
+    mainContainer.style.display = 'flex';
     setTimeout(() => {
-        // Fade out splash
-        splashScreen.style.transition = 'opacity 0.8s ease';
-        splashScreen.style.opacity = '0';
+        mainContainer.style.transition = 'opacity 1s ease';
+        mainContainer.style.opacity = '1';
+    }, 50);
 
-        // Show main container
-        mainContainer.style.display = 'flex';
-        // Small delay to allow display:flex to apply before opacity transition
-        setTimeout(() => {
-            mainContainer.style.transition = 'opacity 1s ease';
-            mainContainer.style.opacity = '1';
-        }, 50);
+    setTimeout(() => {
+        splashScreen.remove();
+    }, 800);
+}
 
-        // Remove splash from DOM after fade
-        setTimeout(() => {
-            splashScreen.remove();
-        }, 800);
-    }, 2500); // 2.5s boot time
-});
+// 1. Auto remove after delay
+setTimeout(removeSplash, 2500);
+
+// 2. Click to skip (Backup)
+if (splashScreen) {
+    splashScreen.addEventListener('click', removeSplash);
+}
 
 // State
 let isAtBottom = true;
