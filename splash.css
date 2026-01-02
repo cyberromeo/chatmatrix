@@ -60,47 +60,23 @@
     font-family: 'Space Mono', monospace;
 }
 
-#start-btn {
-    background: transparent;
-    color: #fff;
-    border: 1px solid #333;
-    border-radius: 30px;
-    /* Pill shape */
-    padding: 15px 40px;
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#start-btn:hover {
-    background: #d71921;
-    border-color: #d71921;
-    color: #000;
-}
-
-#start-btn::after {
-    content: '->';
-}
-
 /* Loader */
 .boot-sequence {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: #444;
+    font-family: 'DotGothic16', sans-serif;
+    /* Glyph Matrix Style */
+    font-size: 0.9rem;
+    color: #d71921;
+    /* Red for emphasis */
     height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin-top: 20px;
+    text-transform: uppercase;
 }
 
 .blink {
-    animation: blink 1s infinite;
+    animation: blink 0.5s infinite step-end;
 }
 
 @keyframes blink {

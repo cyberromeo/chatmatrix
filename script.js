@@ -14,27 +14,30 @@ const usernameInput = document.getElementById('username');
 const contentInput = document.getElementById('content');
 
 // Splash Screen Logic
-const startBtn = document.getElementById('start-btn');
 const splashScreen = document.getElementById('splash-screen');
 const mainContainer = document.querySelector('.container');
 
-startBtn.addEventListener('click', () => {
-    // Fade out splash
-    splashScreen.style.transition = 'opacity 0.8s ease';
-    splashScreen.style.opacity = '0';
-
-    // Show main container
-    mainContainer.style.display = 'flex';
-    // Small delay to allow display:flex to apply before opacity transition
+// Auto Boot Sequence
+window.addEventListener('load', () => {
+    // Wait for "boot" (3 seconds)
     setTimeout(() => {
-        mainContainer.style.transition = 'opacity 1s ease';
-        mainContainer.style.opacity = '1';
-    }, 50);
+        // Fade out splash
+        splashScreen.style.transition = 'opacity 0.8s ease';
+        splashScreen.style.opacity = '0';
 
-    // Remove splash from DOM after fade
-    setTimeout(() => {
-        splashScreen.remove();
-    }, 800);
+        // Show main container
+        mainContainer.style.display = 'flex';
+        // Small delay to allow display:flex to apply before opacity transition
+        setTimeout(() => {
+            mainContainer.style.transition = 'opacity 1s ease';
+            mainContainer.style.opacity = '1';
+        }, 50);
+
+        // Remove splash from DOM after fade
+        setTimeout(() => {
+            splashScreen.remove();
+        }, 800);
+    }, 2500); // 2.5s boot time
 });
 
 // State
