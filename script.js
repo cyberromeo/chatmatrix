@@ -116,14 +116,15 @@ async function loadMessages() {
         const { data: messages, error } = await supabase
             .from('messages')
             .select('*')
-            .order('created_at', { ascending: true }) // Order by time ascending
-            .limit(50); // Get last 50 messages
+            .order('created_at', { ascending: false }) // Order by Newest First
+            .limit(50); // Get latest 50 messages
 
         if (error) throw error;
 
         if (loadingState) loadingState.remove();
 
-        messages.forEach(msg => {
+        // Reverse to show Oldest -> Newest (Top -> Bottom)
+        messages.reverse().forEach(msg => {
             messagesContainer.appendChild(renderMessage(msg));
         });
 
