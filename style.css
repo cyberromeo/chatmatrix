@@ -176,6 +176,26 @@ body {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
+/* Typing Indicator */
+.typing-indicator {
+    min-height: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    padding: 0 4px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typing-indicator::before {
+    content: '>';
+    animation: blink 1s infinite step-end;
+}
+
 /* Input Area */
 .input-area {
     margin-top: calc(var(--spacing-unit) * 2);

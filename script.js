@@ -161,41 +161,82 @@ async function loadMessages() {
 
 // Subscribe to Realtime Updates & Presence
 function subscribeToMessages() {
+    // Unique ID for this session to identify self
+    const mySessionId = Math.random().toString(36).substr(2, 9);
+
+    // Typing state
+    let isTyping = false;
+    let typingTimeout;
+
     const channel = supabase
         .channel('public:messages')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
             const newMsg = payload.new;
             messagesContainer.appendChild(renderMessage(newMsg));
-
-            // Sound
             if (window.playSfx) window.playSfx('receive');
-
-            // Auto scroll if user was near bottom
             scrollToBottom();
         })
         .on('presence', { event: 'sync' }, () => {
-            const newState = channel.presenceState();
-            const onlineCount = Object.keys(newState).length;
+            const state = channel.presenceState();
 
+            // 1. Update Online Count
+            const onlineCount = Object.keys(state).length;
             const countEl = document.getElementById('online-count');
             if (countEl) {
                 countEl.innerText = `ONLINE: ${onlineCount}`;
-                // Optional: visual pulse when count changes
-                countEl.style.textShadow = '0 0 10px var(--accent-color)';
-                setTimeout(() => countEl.style.textShadow = 'none', 500);
+            }
+
+            // 2. Update Typing Indicator
+            const typingUsers = [];
+            for (const id in state) {
+                // Filter out self and non-typing users
+                const userState = state[id][0]; // Supabase sends array of states per user
+                if (userState.user_id !== mySessionId && userState.typing) {
+                    typingUsers.push(userState.username);
+                }
+            }
+
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                if (typingUsers.length > 0) {
+                    const text = typingUsers.length > 3
+                        ? `${typingUsers.length} SIGNALS TRANSMITTING...`
+                        : `${typingUsers.join(', ')} IS TYPING...`;
+                    indicator.innerText = text;
+                    indicator.style.opacity = '1';
+                } else {
+                    indicator.innerText = '';
+                    indicator.style.opacity = '0';
+                }
             }
         })
         .subscribe(async (status) => {
             if (status === 'SUBSCRIBED') {
-                // Track this user
-                // We generate a random ID for this session or use the username
-                // For accurate counts, we just need a unique tracking event per tab
-                const userStatus = {
-                    online_at: new Date().toISOString(),
-                    user_id: Math.random().toString(36).substr(2, 9)
+                const trackStatus = async (typing) => {
+                    await channel.track({
+                        online_at: new Date().toISOString(),
+                        user_id: mySessionId,
+                        username: usernameInput.value.trim() || 'GHOST',
+                        typing: typing
+                    });
                 };
 
-                await channel.track(userStatus);
+                // Initial Track
+                await trackStatus(false);
+
+                // Typing Listeners
+                contentInput.addEventListener('input', () => {
+                    if (!isTyping) {
+                        isTyping = true;
+                        trackStatus(true);
+                    }
+
+                    clearTimeout(typingTimeout);
+                    typingTimeout = setTimeout(() => {
+                        isTyping = false;
+                        trackStatus(false);
+                    }, 2000); // Stop typing after 2s of silence
+                });
             }
         });
 }
