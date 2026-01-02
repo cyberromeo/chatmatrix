@@ -102,20 +102,31 @@ if (splashClock) {
 // Glyph Loader Logic
 const glyphBar = document.getElementById('glyph-bar');
 const readyText = document.getElementById('ready-text');
+const splashInputWrapper = document.querySelector('.splash-input-wrapper');
+let isSystemReady = false; // Flag to prevent early access
 
 if (glyphBar && readyText) {
     setTimeout(() => {
         glyphBar.style.display = 'none';
         readyText.style.display = 'block';
-    }, 3000); // 3 seconds matching the animation time roughly
+        isSystemReady = true; // Allow login now
+
+        // Removed visibility toggle since input is always visible now
+        if (splashInput) splashInput.focus();
+    }, 3000);
 }
 
 if (splashInput) {
-    // Auto focus
-    setTimeout(() => splashInput.focus(), 500);
-
     splashInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
+            if (!isSystemReady) {
+                // Determine if we should shake or just ignore
+                // Optional: Play error sound or small shake?
+                splashInput.classList.add('error');
+                setTimeout(() => splashInput.classList.remove('error'), 300);
+                return; // STOP HERE if system not ready
+            }
+
             const name = splashInput.value.trim().toUpperCase();
             if (name) {
                 // Set username

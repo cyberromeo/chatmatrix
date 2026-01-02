@@ -208,6 +208,7 @@
 .splash-input-wrapper {
     position: relative;
     width: 100%;
+    /* Input always visible as requested */
 }
 
 .input-label-small {
