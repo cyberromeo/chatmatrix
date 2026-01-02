@@ -49,6 +49,8 @@ function removeSplash() {
         console.warn('SFX Fail', e);
     }
 
+    if (clockInterval) clearInterval(clockInterval);
+
     // Fade out splash
     splashScreen.style.transition = 'opacity 0.8s ease';
     splashScreen.style.opacity = '0';
@@ -70,12 +72,64 @@ function removeSplash() {
     }, 800);
 }
 
-// 1. Auto remove after delay
-setTimeout(removeSplash, 2500);
+// 1. Splash Input Logic
+const splashInput = document.getElementById('splash-username');
+const splashClock = document.getElementById('splash-clock');
+const splashDate = document.getElementById('splash-date');
+let clockInterval;
 
-// 2. Click to skip (Backup)
-if (splashScreen) {
-    splashScreen.addEventListener('click', removeSplash);
+// Clock Logic
+function updateClock() {
+    if (splashClock) {
+        const now = new Date();
+        splashClock.innerText = now.toLocaleTimeString('en-US', { hour12: false });
+    }
+    if (splashDate) {
+        const now = new Date();
+        // Format: DD.MM.YY
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = String(now.getFullYear()).slice(-2);
+        splashDate.innerText = `${day}.${month}.${year}`;
+    }
+}
+
+if (splashClock) {
+    updateClock();
+    clockInterval = setInterval(updateClock, 1000);
+}
+
+// Glyph Loader Logic
+const glyphBar = document.getElementById('glyph-bar');
+const readyText = document.getElementById('ready-text');
+
+if (glyphBar && readyText) {
+    setTimeout(() => {
+        glyphBar.style.display = 'none';
+        readyText.style.display = 'block';
+    }, 3000); // 3 seconds matching the animation time roughly
+}
+
+if (splashInput) {
+    // Auto focus
+    setTimeout(() => splashInput.focus(), 500);
+
+    splashInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const name = splashInput.value.trim().toUpperCase();
+            if (name) {
+                // Set username
+                if (usernameInput) usernameInput.value = name;
+
+                // Remove splash
+                removeSplash();
+            } else {
+                // Shake effect or just focus
+                splashInput.classList.add('error');
+                setTimeout(() => splashInput.classList.remove('error'), 300);
+            }
+        }
+    });
 }
 
 // State

@@ -32,48 +32,56 @@
     <!-- Splash Screen -->
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <div class="splash-content">
-            <div class="deco-line"></div>
+        <div class="nothing-grid-bg"></div>
+        <div class="splash-interface">
+            <!-- Header Removed -->
 
-            <div class="matrix-logo">
-                <span class="logo-line">CHAT</span>
-                <span class="logo-line red">MATRIX</span>
+            <!-- Main Content -->
+            <div class="splash-center">
+                <div id="splash-clock">00:00:00</div>
+                <div id="splash-date" class="mono-date">00.00.00</div>
+
+                <div class="matrix-logo-group">
+                    <div class="splash-logo-text">
+                        <span class="dotted">CHAT</span>
+                        <span class="dotted red">MATRIX</span>
+                    </div>
+                </div>
+
+                <div class="glyph-loader-container">
+                    <div id="glyph-bar">
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                        <div class="glyph-dot"></div>
+                    </div>
+                    <div id="ready-text">READY</div>
+                </div>
             </div>
 
-            <div class="boot-sequence">
-                <div>> MEMORY: OK</div>
-                <div>> NETWORK: OK</div>
-                <div>> <span class="blink">LOADING...</span></div>
+            <!-- Input Area -->
+            <div class="splash-footer">
+                <div class="splash-input-wrapper">
+                    <label for="splash-username" class="input-label-small">IDENTITY_REQUIRED</label>
+                    <input type="text" id="splash-username" placeholder="ENTER_NAME" maxlength="15" autocomplete="off"
+                        autofocus>
+                    <div class="input-active-indicator"></div>
+                </div>
+                <div class="credits">APP BY SRIHARI</div>
             </div>
-
-
         </div>
     </div>
 
     <!-- FAILSAFE SPLASH REMOVER -->
     <script>
         (function () {
-            function forceEnter() {
-                const splash = document.getElementById('splash-screen');
-                const main = document.querySelector('.container');
-                if (splash) {
-                    splash.style.transition = 'opacity 0.5s';
-                    splash.style.opacity = '0';
-                    setTimeout(() => splash.remove(), 500);
-                }
-                if (main) {
-                    main.style.display = 'flex';
-                    setTimeout(() => main.style.opacity = '1', 100);
-                }
-            }
-
-            // Auto-run after 3 seconds no matter what
-            setTimeout(forceEnter, 3000);
-
-            // Also allow click
-            const s = document.getElementById('splash-screen');
-            if (s) s.addEventListener('click', forceEnter);
-            if (s) s.addEventListener('touchstart', forceEnter);
+            // Removed auto-run and click-to-skip to enforce name entry
         })();
     </script>
     </div>
@@ -102,8 +110,8 @@
         <footer class="input-area">
             <form id="message-form">
                 <div class="input-group">
-                    <label for="username" class="input-label">USER_ID:</label>
-                    <input type="text" id="username" placeholder="GHOST" maxlength="15" autocomplete="off">
+                    <!-- USER_ID moved to splash screen -->
+                    <input type="hidden" id="username" value="GHOST">
                 </div>
                 <div class="input-group flex-grow">
                     <label for="content" class="input-label">DATA:</label>

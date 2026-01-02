@@ -1,92 +1,272 @@
-/* NOTHING OS SPLASH SCREEN */
+/* REPLACE ALL CONTENT WITH THIS BLOCK FOR FULL REDESIGN */
+/* NOTHING OS SPLASH SCREEN 2.0 */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: #000;
     z-index: 2147483647;
-    /* MAX INT */
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    font-family: 'Doto', sans-serif;
-}
-
-.splash-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* Left align like Nothing OS */
-    gap: 40px;
-    width: 300px;
-}
-
-.matrix-logo {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.logo-line {
-    font-size: 3.5rem;
+    overflow: hidden;
     color: #fff;
-    line-height: 0.9;
-    letter-spacing: 2px;
-    text-transform: uppercase;
 }
 
-.logo-line.red {
-    color: #d71921;
-}
-
-/* Nothing-style decorative elements */
-.deco-line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #333;
-    position: relative;
-}
-
-.deco-line::after {
-    content: '( SYSTEM_BOOT )';
+/* Background Grid */
+.nothing-grid-bg {
     position: absolute;
-    right: 0;
-    top: -20px;
-    font-size: 0.7rem;
-    color: #555;
-    font-family: 'Space Mono', monospace;
+    inset: 0;
+    background-image:
+        radial-gradient(#333 1px, transparent 1px),
+        radial-gradient(#333 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.2;
+    mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
 }
 
-/* Loader */
-.boot-sequence {
-    font-family: 'Doto', sans-serif;
-    /* Glyph Matrix Style */
-    font-size: 0.9rem;
-    color: #d71921;
-    /* Red for emphasis */
-    height: 60px;
+.splash-interface {
+    width: 90%;
+    max-width: 400px;
+    height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    margin-top: 20px;
-    text-transform: uppercase;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
 }
 
-.blink {
-    animation: blink 0.5s infinite step-end;
+/* Header Removed */
+
+.mono,
+.mono-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #666;
+    letter-spacing: 1px;
 }
 
-@keyframes blink {
+/* Main Center Content */
+.splash-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 50px;
+}
+
+#splash-clock {
+    font-family: 'Doto', sans-serif;
+    font-size: 2rem;
+    /* SMALLER CLOCK */
+    font-weight: 700;
+    color: #666;
+    /* Subdued color */
+    line-height: 1;
+    letter-spacing: 0;
+}
+
+.mono-date {
+    color: #444;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+}
+
+/* Logo Group */
+.matrix-logo-group {
+    padding: 20px 0;
+}
+
+.splash-logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.dotted {
+    font-family: 'Doto', sans-serif;
+    font-size: 5rem;
+    /* BIGGER LOGO */
+    line-height: 0.85;
+    color: #fff;
+    font-weight: 300;
+}
+
+.dotted.red {
+    color: #d71921;
+}
+
+/* Glyph Bar Loader */
+.glyph-loader-container {
+    margin-top: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#glyph-bar {
+    display: flex;
+    gap: 8px;
+}
+
+.glyph-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #333;
+    animation: fillRed 0.5s forwards;
+    opacity: 0.5;
+}
+
+/* Stagger animations for 10 dots over 2.5s */
+.glyph-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.glyph-dot:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.glyph-dot:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.glyph-dot:nth-child(4) {
+    animation-delay: 0.75s;
+}
+
+.glyph-dot:nth-child(5) {
+    animation-delay: 1.0s;
+}
+
+.glyph-dot:nth-child(6) {
+    animation-delay: 1.25s;
+}
+
+.glyph-dot:nth-child(7) {
+    animation-delay: 1.5s;
+}
+
+.glyph-dot:nth-child(8) {
+    animation-delay: 1.75s;
+}
+
+.glyph-dot:nth-child(9) {
+    animation-delay: 2.0s;
+}
+
+.glyph-dot:nth-child(10) {
+    animation-delay: 2.25s;
+}
+
+@keyframes fillRed {
+    to {
+        background-color: #d71921;
+        opacity: 1;
+        box-shadow: 0 0 5px #d71921;
+    }
+}
+
+#ready-text {
+    display: none;
+    /* Hidden by default */
+    font-family: 'Doto', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    animation: blinkReady 1s infinite;
+}
+
+@keyframes blinkReady {
 
     0%,
     100% {
         opacity: 1;
+        text-shadow: 0 0 10px #fff;
     }
 
     50% {
-        opacity: 0;
+        opacity: 0.5;
+        text-shadow: none;
+    }
+}
+
+/* Footer / Input */
+.splash-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #333;
+}
+
+.splash-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-label-small {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+#splash-username {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    padding: 15px;
+    color: #fff;
+    font-family: 'Doto', sans-serif;
+    font-size: 1.2rem;
+    outline: none;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+#splash-username:focus {
+    border-color: #d71921;
+    background: #000;
+}
+
+#splash-username::placeholder {
+    color: #333;
+}
+
+/* Credits */
+.credits {
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+/* Animation needed for shake error */
+.splash-input-wrapper input.error {
+    border-color: #d71921;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
     }
 }
